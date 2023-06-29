@@ -10,6 +10,7 @@
       border: 1px solid black;
       overflow: hidden; /* Add this line to hide elements outside the container */
       display: none;
+      top: 50px;
     }
 
     #player {
@@ -96,10 +97,11 @@
   z-index: 1;
 }
 
-#reset-button
-{
+#reset-button {
+  /* Remove or change this line */
   display: none;
 }
+
 
   </style>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -126,7 +128,7 @@
     <div id="player"></div>
   </div>
   <div id="videoo">
-  <button id="reset-button" onclick="resetGame()" class="btn btn-info">Reset</button>
+  <button id="reset-button" onclick="resetGame()" class="btn btn-info">Reset - use for bug and game over</button>
   <iframe width="800" height="600" id="video-embed" class="btn"></iframe>
   <p>make sure everything id filled out before clicking change video settings</p>
   <input type="text" placeholder="type the link of a youtube vid" id="sr"></input>
@@ -475,22 +477,23 @@ const firebaseConfig = {
   }
 }
 
+var reset = 0
+
 function toggleGameSection() {
   var videosec = document.getElementById('videoo');
   var gameContainer = document.getElementById('game-container');
   var arrowButton = document.getElementById('arrow-button');
+  var resetButton = document.getElementById("reset-button")
 
   if (gameContainer.style.display === 'none') {
     gameContainer.style.display = 'block';
     videosec.style.display = 'none';
-    document.getElementById("reset-button").style.display = 'block';
     document.getElementById("gt").innerHTML = 'game';
     arrowButton.innerHTML = '&#8595;'; // Change arrow direction to downward
-    isGameRunning = false;
+    resetGame()
   } else {
     gameContainer.style.display = 'none';
     videosec.style.display = 'block';
-    document.getElementById("reset-button").style.display = 'none';
     document.getElementById("gt").innerHTML = 'video';
     arrowButton.innerHTML = '&#8593;'; // Change arrow direction to upward
     resetGame()
@@ -505,7 +508,7 @@ function toggleGameSection() {
     var enemy = enemies[i];
     removeEnemy(enemy);
   }
-    isGameRunning = true;
+    isGameRunning = false;
   }
 }
 
